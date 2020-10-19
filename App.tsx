@@ -15,7 +15,7 @@ const App = () => {
   const scheme = useColorScheme();
   return (
     <SafeAreaProvider>
-      <NavigationContainer theme={scheme === 'dark' ? DarkTheme : DefaultTheme}>
+      <NavigationContainer theme={DarkTheme}>
         <Routes />
       </NavigationContainer>
     </SafeAreaProvider>

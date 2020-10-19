@@ -2,38 +2,29 @@ import {useNavigation, useTheme} from '@react-navigation/native';
 import React from 'react';
 import {Pressable, Text, View} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
-import {NextIcon, ProblemIcon} from './styles';
+import {
+  ContainerBox,
+  ItemContainer,
+  ItemIconBadge,
+  ItemTitle,
+  NextIcon,
+  ProblemIcon,
+  Title,
+} from './styles';
 
-function Items(props: {title: string}) {
+function Items(props: {title: string; color: string}) {
   const {colors} = useTheme();
   const navigation = useNavigation();
   return (
-    <Pressable
-      onPress={() => navigation.navigate('Repositories')}
-      style={{
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        paddingHorizontal: 5,
-        paddingVertical: 7,
-      }}>
+    <ItemContainer onPress={() => navigation.navigate('Repositories')}>
       <View style={{flexDirection: 'row', alignItems: 'center'}}>
-        <View
-          style={{
-            backgroundColor: 'green',
-            width: 35,
-            height: 35,
-            borderRadius: 5,
-            justifyContent: 'center',
-            alignItems: 'center',
-            marginRight: 10,
-          }}>
+        <ItemIconBadge style={{backgroundColor: props.color}}>
           <ProblemIcon />
-        </View>
-        <Text style={{color: 'white', fontSize: 16}}>{props.title}</Text>
+        </ItemIconBadge>
+        <ItemTitle>{props.title}</ItemTitle>
       </View>
       <NextIcon color={colors.text} style={{opacity: 0.3}} />
-    </Pressable>
+    </ItemContainer>
   );
 }
 
@@ -47,40 +38,32 @@ const Home: React.FC = () => {
         padding: 15,
       }}>
       <View>
-        <Text style={{color: colors.text, fontSize: 23, fontWeight: '600'}}>
-          Meu Trabalho
-        </Text>
-        <View
+        <Title>Meu Trabalho</Title>
+        <ContainerBox
           style={{
             backgroundColor: colors.card,
-            width: '100%',
-            marginTop: 10,
-            borderRadius: 10,
-            padding: 10,
           }}>
-          <Items title="Problemas" />
-          <Items title="Pull Requests" />
-          <Items title="Repositórios" />
-          <Items title="Organizações" />
-        </View>
+          <Items color="red" title="Problemas" />
+          <Items color="green" title="Pull Requests" />
+          <Items color="purple" title="Repositórios" />
+          <Items color="blue" title="Organizações" />
+        </ContainerBox>
       </View>
-      <View>
-        <Text style={{color: colors.text, fontSize: 23, fontWeight: '600'}}>
-          Meu Trabalho
-        </Text>
-        <View
+      <View style={{marginTop: 20}}>
+        <Title>Favoritos</Title>
+        <ContainerBox
           style={{
             backgroundColor: colors.card,
             width: '100%',
-            marginTop: 10,
-            borderRadius: 10,
+            height: 200,
             padding: 10,
+            alignItems: 'center',
           }}>
-          <Items title="Problemas" />
-          <Items title="Pull Requests" />
-          <Items title="Repositórios" />
-          <Items title="Organizações" />
-        </View>
+          <Text style={{color: colors.text, fontSize: 17}}>
+            Adicione repositorios favoritos aqui para ter acesso rápido a
+            qualquer momento, sem ter que pesquisar
+          </Text>
+        </ContainerBox>
       </View>
     </ScrollView>
   );
